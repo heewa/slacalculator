@@ -18,7 +18,7 @@ MathFunctions = {
 MathContext = dict(MathConstants.items() + MathFunctions.items())
 
 
-FunctionPattern = r'(?:(?:' + '|'.join(MathFunctions.keys()) + r')\s*\(\s*)'
+FunctionPattern = r'(?:\<(?:' + '|'.join(MathFunctions.keys()) + r')\s*\(\s*)'
 NumberPattern = r'-?[0-9]*\.?[0-9]+'
 OperatorPattern = r'(?:(?:[-+*%/\\]|\*\*|//)\s*)'
 SymbolPattern = (
@@ -27,7 +27,7 @@ SymbolPattern = (
     r'(?:\(+\s*)*'  # if it starts with paren, spaces are allowed
     r'(?:'  # the number group, inside parens
     + NumberPattern +
-    r'|' + '|'.join(MathConstants.keys()) + # math constants
+    r'|' + '|'.join('\<%s\>' % c for c in MathConstants.keys()) + # math constants
     r')'  # end of number group
     r'(?:\)*\s*)*'  # ending parens and spaces, in any combination
     r')'  # end of whole group
